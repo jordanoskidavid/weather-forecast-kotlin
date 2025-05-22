@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 
 
 class MainActivity : ComponentActivity() {
@@ -72,13 +73,13 @@ fun MainScreen(
                 modifier = Modifier.size(150.dp)
             )
             Text(
-                text = "Welcome to",
+                text = stringResource(id = R.string.welcome_to),
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 28.sp,
                 color = Color.White
             )
             Text(
-                text = "Weathero",
+                text = stringResource(id = R.string.app_name),
                 fontWeight = FontWeight.Bold,
                 fontSize = 45.sp,
                 color = Color.White
@@ -94,7 +95,7 @@ fun MainScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Access your weather info",
+                    text = stringResource(id = R.string.access_your_weather_info),
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Medium,
                     color = Color(0xFF333333),
@@ -114,7 +115,7 @@ fun MainScreen(
                     )
                 ) {
                     Text(
-                        text = "Register",
+                        text = stringResource(id = R.string.register),
                         fontSize = 20.sp)
                 }
 
@@ -129,7 +130,7 @@ fun MainScreen(
                     )
                 ) {
                     Text(
-                        text = "Login",
+                        text = stringResource(id = R.string.login),
                         fontSize = 20.sp)
                 }
             }

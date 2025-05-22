@@ -224,16 +224,6 @@ fun RegisterScreen(
                     )
                 }
             }
-
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            TextButton(
-                onClick = { /* TODO: Anonymous login */ },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(stringResource(id = R.string.anonymous), color = Color.Gray, fontSize = 18.sp)
-            }
         }
     }
 

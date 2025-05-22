@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Weathero</string>
+    <string name="welcome_to">Добредојде во</string>
+    <string name="access_your_weather_info">Добиј метео инфо</string>
+    <string name="username">Корисничко име</string>
+    <string name="email">Е-пошта</string>
+    <string name="password">Лозинка</string>
+    <string name="register">Регистрирај се</string>
+    <string name="login">Најави се</string>
+    <string name="already_have_account">Имаш профил? Најави се!</string>
+    <string name="dont_have_account">Немаш профил? Регистрирај се!</string>
+    <string name="create_account">Направи профил</string>
+    <string name="login_to_account">Најави се на твојот профил</string>
+    <string name="or_continue_with">или продолжи со</string>
+    <string name="google">Продолжи со Гугл</string>
+    <string name="facebook">Продолжи со Фејсбук</string>
+    <string name="anonymous">Продолжи како гостин</string>
+</resources>
