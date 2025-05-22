@@ -1,5 +1,6 @@
 package com.example.weatherapp
 
+import BaseActivity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -22,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 
 
 
-class RegisterActivity : ComponentActivity() {
+class RegisterActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
