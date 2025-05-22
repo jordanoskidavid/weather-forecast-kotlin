@@ -109,7 +109,7 @@ fun MainScreen(
                     shape = MaterialTheme.shapes.medium,
                     elevation = null,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF90CAF9), // Green
+                        containerColor = Color(0xFFFFC474),
                         contentColor = Color.White
                     )
                 ) {
