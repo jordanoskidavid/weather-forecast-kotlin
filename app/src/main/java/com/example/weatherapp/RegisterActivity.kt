@@ -1,5 +1,6 @@
 package com.example.weatherapp
 
+import BaseActivity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -22,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 
 
 
-class RegisterActivity : ComponentActivity() {
+class RegisterActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -223,16 +224,6 @@ fun RegisterScreen(
                         fontSize = 18.sp
                     )
                 }
-            }
-
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            TextButton(
-                onClick = { /* TODO: Anonymous login */ },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(stringResource(id = R.string.anonymous), color = Color.Gray, fontSize = 18.sp)
             }
         }
     }
