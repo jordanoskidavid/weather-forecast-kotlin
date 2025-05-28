@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.sp
 
@@ -34,7 +35,7 @@ class LoginActivity : BaseActivity() {
                 onNavigateToRegister = {
                     startActivity(Intent(this, RegisterActivity::class.java))
                     finish()
-                }
+                },
             )
         }
     }
@@ -43,10 +44,11 @@ class LoginActivity : BaseActivity() {
 @Composable
 fun LoginScreen(
     onLoginSuccess: () -> Unit,
-    onNavigateToRegister: () -> Unit
+    onNavigateToRegister: () -> Unit,
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
     val context = LocalContext.current
 
     Column(modifier = Modifier

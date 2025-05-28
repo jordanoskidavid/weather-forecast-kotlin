@@ -46,6 +46,11 @@
             android:exported="true"
             android:label="Login"
             android:theme="@style/Theme.WeatherApp" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="true"
+            android:label="Login"
+            android:theme="@style/Theme.WeatherApp" />
 
     </application>
 
