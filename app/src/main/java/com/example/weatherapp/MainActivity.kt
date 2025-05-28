@@ -7,26 +7,24 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.weatherapp.LanguagePicker
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import com.example.weatherapp.ui.theme.WeatherAppTheme
-import java.util.Locale
-import androidx.core.content.edit
+import java.util.*
 
 class MainActivity : BaseActivity() {
 
@@ -34,7 +32,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Load saved language preference, default to English ("en")
+        // Load saved language preference and apply locale
         val prefs = getSharedPreferences("settings", MODE_PRIVATE)
         val savedLang = prefs.getString("lang", "en") ?: "en"
         updateLocale(savedLang)
@@ -50,25 +48,14 @@ class MainActivity : BaseActivity() {
                         onNavigateToLogin = {
                             startActivity(Intent(this, LoginActivity::class.java))
                         },
-                        onLanguageChange = { languageName ->
-                            val langCode = when (languageName) {
-                                "English" -> "en"
-                                "Македонски" -> "mk"
-                                else -> "en"
-                            }
-                            setLanguage(langCode)
-                            updateLocale(langCode)
-                            recreate() // restart activity to apply new locale
+                        onLanguageChange = { /* Not used anymore, handled in SettingsActivity */ },
+                        onNavigateToSettings = {
+                            startActivity(Intent(this, SettingsActivity::class.java))
                         }
                     )
                 }
             }
         }
-    }
-
-    private fun setLanguage(langCode: String) {
-        val prefs = getSharedPreferences("settings", MODE_PRIVATE)
-        prefs.edit { putString("lang", langCode) }
     }
 
     private fun updateLocale(langCode: String) {
@@ -85,10 +72,10 @@ fun MainScreen(
     modifier: Modifier = Modifier,
     onNavigateToRegister: () -> Unit,
     onNavigateToLogin: () -> Unit,
-    onLanguageChange: (String) -> Unit
+    onLanguageChange: (String) -> Unit,
+    onNavigateToSettings: () -> Unit
 ) {
-    // Read saved language from SharedPreferences on first composition
-    val prefs = androidx.compose.ui.platform.LocalContext.current.getSharedPreferences("settings", 0)
+    val prefs = LocalContext.current.getSharedPreferences("settings", 0)
     val savedLangCode = prefs.getString("lang", "en") ?: "en"
     var currentLanguage by remember {
         mutableStateOf(
@@ -111,37 +98,44 @@ fun MainScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = "App Logo",
-                modifier = Modifier.size(150.dp)
-            )
-            Text(
-                text = stringResource(id = R.string.welcome_to),
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 28.sp,
-                color = Color.White
-            )
-            Text(
-                text = stringResource(id = R.string.app_name),
-                fontWeight = FontWeight.Bold,
-                fontSize = 45.sp,
-                color = Color.White
-            )
+            // Top-right settings button (text for now)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
                 contentAlignment = Alignment.TopEnd
             ) {
-                LanguagePicker(
-                    currentLanguage = currentLanguage,
-                    onLanguageSelected = { selected ->
-                        currentLanguage = selected
-                        onLanguageChange(selected)
-                    }
+                Icon(
+                    imageVector = Icons.Default.Settings,
+                    contentDescription = "Settings",
+                    tint = Color.White,
+                    modifier = Modifier
+                        .size(24.dp)
+                        .clickable { onNavigateToSettings() }
                 )
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Image(
+                painter = painterResource(id = R.drawable.logo),
+                contentDescription = "App Logo",
+                modifier = Modifier.size(150.dp)
+            )
+
+            Text(
+                text = stringResource(id = R.string.welcome_to),
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 28.sp,
+                color = Color.White
+            )
+
+            Text(
+                text = stringResource(id = R.string.app_name),
+                fontWeight = FontWeight.Bold,
+                fontSize = 45.sp,
+                color = Color.White
+            )
 
             Spacer(modifier = Modifier.height(32.dp))
 
@@ -205,7 +199,8 @@ fun MainScreenPreview() {
         MainScreen(
             onNavigateToRegister = {},
             onNavigateToLogin = {},
-            onLanguageChange = {}
+            onLanguageChange = {},
+            onNavigateToSettings = {}
         )
     }
 }

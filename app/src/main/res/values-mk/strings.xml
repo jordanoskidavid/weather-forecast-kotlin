@@ -14,5 +14,7 @@
     <string name="or_continue_with">или продолжи со</string>
     <string name="google">Продолжи со Гугл</string>
     <string name="facebook">Продолжи со Фејсбук</string>
+    <string name="settings">Подесувања</string>
+    <string name="choose_language">Избери јазик</string>
     <string name="anonymous">Продолжи како гостин</string>
 </resources>
