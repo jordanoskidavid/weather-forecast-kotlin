@@ -12,6 +12,7 @@ import kotlinx.coroutines.tasks.await
 import java.util.*
 
 class LocationViewModel : ViewModel() {
+    // Location properties
     var currentCity by mutableStateOf("")
         private set
 
@@ -27,6 +28,19 @@ class LocationViewModel : ViewModel() {
     var errorMessage by mutableStateOf("")
         private set
 
+    // Weather properties
+    var weatherData by mutableStateOf<WeatherResponse?>(null)
+        private set
+
+    var isLoadingWeather by mutableStateOf(false)
+        private set
+
+    var weatherError by mutableStateOf("")
+        private set
+
+    private val API_KEY = "52249397692f256d0b20c50d0905415f"
+    private val weatherApi = WeatherApiService.create()
+
     suspend fun getCurrentLocation(context: Context) {
         try {
             isLoading = true
@@ -35,7 +49,6 @@ class LocationViewModel : ViewModel() {
             val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
             val cancellationTokenSource = CancellationTokenSource()
 
-            // Get current location with high accuracy
             val location = fusedLocationClient.getCurrentLocation(
                 Priority.PRIORITY_HIGH_ACCURACY,
                 cancellationTokenSource.token
@@ -45,7 +58,6 @@ class LocationViewModel : ViewModel() {
                 latitude = location.latitude
                 longitude = location.longitude
 
-                // Get city name from coordinates using Geocoder
                 val geocoder = Geocoder(context, Locale.getDefault())
                 val addresses: List<Address>? = geocoder.getFromLocation(
                     latitude, longitude, 1
@@ -61,6 +73,9 @@ class LocationViewModel : ViewModel() {
                     currentCity = "Unknown Location"
                     errorMessage = "Could not determine city name"
                 }
+
+                getWeatherData()
+
             } else {
                 errorMessage = "Could not get location"
             }
@@ -70,6 +85,37 @@ class LocationViewModel : ViewModel() {
             errorMessage = "Error: ${e.message}"
         } finally {
             isLoading = false
+        }
+    }
+
+    private suspend fun getWeatherData() {
+        try {
+            isLoadingWeather = true
+            weatherError = ""
+
+            if (API_KEY == "YOUR_API_KEY_HERE") {
+                weatherError = "Please add your OpenWeatherMap API key"
+                return
+            }
+
+            val weather = weatherApi.getCurrentWeather(
+                latitude = latitude,
+                longitude = longitude,
+                apiKey = API_KEY
+            )
+
+            weatherData = weather
+
+        } catch (e: Exception) {
+            weatherError = "Failed to get weather: ${e.message}"
+        } finally {
+            isLoadingWeather = false
+        }
+    }
+
+    suspend fun refreshWeather() {
+        if (latitude != 0.0 && longitude != 0.0) {
+            getWeatherData()
         }
     }
 }
