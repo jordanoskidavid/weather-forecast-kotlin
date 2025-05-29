@@ -90,7 +90,24 @@ fun MainScreen(
         modifier = modifier
             .fillMaxSize()
             .background(Color(0xFF00BFFF)) // Sky blue background
-    ) {
+    )
+    {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(),
+            contentAlignment = Alignment.TopEnd
+        ) {
+            Icon(
+                imageVector = Icons.Default.Settings,
+                contentDescription = "Settings",
+                tint = Color.White,
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .size(60.dp)
+                    .padding(end = 16.dp, top = 16.dp)
+                    .clickable { onNavigateToSettings() }
+            )
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -98,22 +115,6 @@ fun MainScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Top-right settings button (text for now)
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                contentAlignment = Alignment.TopEnd
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Settings,
-                    contentDescription = "Settings",
-                    tint = Color.White,
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clickable { onNavigateToSettings() }
-                )
-            }
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -186,6 +187,13 @@ fun MainScreen(
                         text = stringResource(id = R.string.login),
                         fontSize = 20.sp
                     )
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+                TextButton(
+                    onClick = { /* TODO: Anonymous login */ },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(stringResource(id = R.string.anonymous), color = Color.Gray, fontSize = 18.sp)
                 }
             }
         }

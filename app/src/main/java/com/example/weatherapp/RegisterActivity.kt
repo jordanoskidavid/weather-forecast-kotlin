@@ -31,7 +31,7 @@ class RegisterActivity : BaseActivity() {
         setContent {
             RegisterScreen(
                 onRegisterSuccess = {
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, WeatherActivity::class.java))
                     finish()
                 },
                 onNavigateToLogin = {
