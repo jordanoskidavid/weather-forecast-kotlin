@@ -135,14 +135,5 @@ fun LoginScreen(
             color = Color(0xFF00BFFF),
             fontSize = 18.sp
         )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        TextButton(
-            onClick = { /* TODO: Anonymous login */ },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(stringResource(id = R.string.anonymous), color = Color.Gray, fontSize = 18.sp)
-        }
     }
 }
