@@ -25,5 +25,7 @@
     <string name="max">Максимална</string>
     <string name="refresh_location">Освежи локација</string>
     <string name="refresh_weather">Освежи метео</string>
+    <string name="loading_weather">Вчитување на времето</string>
+    <string name="weather_error">Грешка со Метеото</string>
     <string name="anonymous">Продолжи како гостин</string>
 </resources>
