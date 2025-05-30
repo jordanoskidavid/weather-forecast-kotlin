@@ -74,7 +74,7 @@ class LocationViewModel : ViewModel() {
                     errorMessage = "Could not determine city name"
                 }
 
-                getWeatherData()
+                getWeatherData(context)
 
             } else {
                 errorMessage = "Could not get location"
@@ -88,7 +88,7 @@ class LocationViewModel : ViewModel() {
         }
     }
 
-    private suspend fun getWeatherData() {
+    private suspend fun getWeatherData(context: Context) {
         try {
             isLoadingWeather = true
             weatherError = ""
@@ -97,11 +97,13 @@ class LocationViewModel : ViewModel() {
                 weatherError = "Please add your OpenWeatherMap API key"
                 return
             }
-
+            val langCode = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+                .getString("lang", "en") ?: "en"
             val weather = weatherApi.getCurrentWeather(
                 latitude = latitude,
                 longitude = longitude,
-                apiKey = API_KEY
+                apiKey = API_KEY,
+                lang = langCode
             )
 
             weatherData = weather
@@ -113,9 +115,9 @@ class LocationViewModel : ViewModel() {
         }
     }
 
-    suspend fun refreshWeather() {
+    suspend fun refreshWeather(context: Context) {
         if (latitude != 0.0 && longitude != 0.0) {
-            getWeatherData()
+            getWeatherData(context)
         }
     }
 }

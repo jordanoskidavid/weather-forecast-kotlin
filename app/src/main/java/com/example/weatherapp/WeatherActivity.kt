@@ -15,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -84,7 +85,7 @@ fun WeatherScreen(viewModel: LocationViewModel = viewModel()) {
             viewModel.isLoading -> {
                 CircularProgressIndicator()
                 Spacer(modifier = Modifier.height(16.dp))
-                Text("Getting your location...")
+                Text(stringResource(id = R.string.getting_your_location))
             }
 
             viewModel.errorMessage.isNotEmpty() -> {
@@ -110,23 +111,15 @@ fun WeatherScreen(viewModel: LocationViewModel = viewModel()) {
             viewModel.currentCity.isNotEmpty() -> {
                 // City name and coordinates
                 Text(
-                    text = "Weather in ${viewModel.currentCity}",
+                    text = viewModel.currentCity,
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Text(
-                    text = "Lat: ${String.format("%.4f", viewModel.latitude)}, " +
-                            "Lng: ${String.format("%.4f", viewModel.longitude)}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // Weather information
                 when {
                     viewModel.isLoadingWeather -> {
                         CircularProgressIndicator()
@@ -173,7 +166,6 @@ fun WeatherScreen(viewModel: LocationViewModel = viewModel()) {
                                 modifier = Modifier.padding(20.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
-                                // Main temperature
                                 Text(
                                     text = "${weather.main.temp.roundToInt()}°C",
                                     fontSize = 48.sp,
@@ -181,7 +173,6 @@ fun WeatherScreen(viewModel: LocationViewModel = viewModel()) {
                                     color = MaterialTheme.colorScheme.primary
                                 )
 
-                                // Weather description
                                 Text(
                                     text = weather.weather[0].description.replaceFirstChar {
                                         it.uppercase()
@@ -191,7 +182,7 @@ fun WeatherScreen(viewModel: LocationViewModel = viewModel()) {
                                 )
 
                                 Text(
-                                    text = "Feels like ${weather.main.feelsLike.roundToInt()}°C",
+                                    text = "${stringResource(id = R.string.feels_like)} ${weather.main.feelsLike.roundToInt()}°C",
                                     fontSize = 14.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -204,15 +195,15 @@ fun WeatherScreen(viewModel: LocationViewModel = viewModel()) {
                                     horizontalArrangement = Arrangement.SpaceEvenly
                                 ) {
                                     WeatherDetailItem(
-                                        label = "Humidity",
+                                        label = stringResource(id = R.string.humidity),
                                         value = "${weather.main.humidity}%"
                                     )
                                     WeatherDetailItem(
-                                        label = "Pressure",
+                                        label = stringResource(id = R.string.pressure),
                                         value = "${weather.main.pressure} hPa"
                                     )
                                     WeatherDetailItem(
-                                        label = "Wind",
+                                        label = stringResource(id = R.string.wind),
                                         value = "${weather.wind.speed} m/s"
                                     )
                                 }
@@ -224,11 +215,11 @@ fun WeatherScreen(viewModel: LocationViewModel = viewModel()) {
                                     horizontalArrangement = Arrangement.SpaceEvenly
                                 ) {
                                     WeatherDetailItem(
-                                        label = "Min",
+                                        label = stringResource(id = R.string.min),
                                         value = "${weather.main.tempMin.roundToInt()}°C"
                                     )
                                     WeatherDetailItem(
-                                        label = "Max",
+                                        label = stringResource(id = R.string.max),
                                         value = "${weather.main.tempMax.roundToInt()}°C"
                                     )
                                 }
@@ -250,18 +241,18 @@ fun WeatherScreen(viewModel: LocationViewModel = viewModel()) {
                             }
                         }
                     ) {
-                        Text("Refresh Location")
+                        Text(stringResource(id = R.string.refresh_location))
                     }
 
                     if (viewModel.weatherData != null || viewModel.weatherError.isNotEmpty()) {
                         Button(
                             onClick = {
                                 scope.launch {
-                                    viewModel.refreshWeather()
+                                    viewModel.refreshWeather(context)
                                 }
                             }
                         ) {
-                            Text("Refresh Weather")
+                            Text(stringResource(id = R.string.refresh_weather))
                         }
                     }
                 }
