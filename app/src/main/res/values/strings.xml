@@ -25,5 +25,7 @@
     <string name="max">Max</string>
     <string name="refresh_location">Refresh Location</string>
     <string name="refresh_weather">Refresh Weather</string>
+    <string name="loading_weather">Loading Weather</string>
+    <string name="weather_error">Weather Error</string>
     <string name="anonymous">Continue as Guest</string>
 </resources>

@@ -109,7 +109,6 @@ fun WeatherScreen(viewModel: LocationViewModel = viewModel()) {
             }
 
             viewModel.currentCity.isNotEmpty() -> {
-                // City name and coordinates
                 Text(
                     text = viewModel.currentCity,
                     style = MaterialTheme.typography.headlineMedium,
@@ -124,7 +123,7 @@ fun WeatherScreen(viewModel: LocationViewModel = viewModel()) {
                     viewModel.isLoadingWeather -> {
                         CircularProgressIndicator()
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text("Loading weather data...")
+                        Text(stringResource( id = R.string.feels_like))
                     }
 
                     viewModel.weatherError.isNotEmpty() -> {
@@ -140,7 +139,7 @@ fun WeatherScreen(viewModel: LocationViewModel = viewModel()) {
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(
-                                    text = "Weather Error",
+                                    text = stringResource( id = R.string.weather_error),
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onErrorContainer
                                 )
